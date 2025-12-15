@@ -27,7 +27,7 @@ jobs:
     - name: Install Buildozer and Core Dependencies
       run: |
         python -m pip install --upgrade pip setuptools wheel
-        pip install buildozer==1.5.0 cython==0.29.36 # Buildozer와 Cython 버전 고정
+        pip install buildozer==1.5.0 cython==0.29.36 # Buildozer와 Cython 버전 고정 (매우 중요!)
         pip install appdirs packaging colorama jinja2 toml build # 기타 Buildozer 관련 의존성
 
     - name: Set up Java Development Kit (JDK)
@@ -111,9 +111,12 @@ jobs:
     # --- Build Android APK (Debug) ---
     - name: Build Android APK (Debug)
       run: |
-        # 이전 스텝에서 GITHUB_ENV에 설정된 환경 변수를 Buildozer가 자동으로 사용합니다.
-        # 또한 buildozer.spec에 ANDROID_NDK_PATH를 명시적으로 설정했으므로
-        # Buildozer가 자체 NDK 다운로드를 우회할 것입니다.
+        # Buildozer가 직접적으로 NDK를 다운로드하는 것을 방지하기 위해 Buildozer의
+        # NDK 경로 탐색을 위한 환경 변수를 Buildozer에 명시적으로 주입합니다.
+        # 이렇게 하면 buildozer.spec의 android.ndk_path와 연계되어 미리 설치된 NDK를 사용하게 됩니다.
+        echo "ANDROID_NDK_HOME=${{ env.ANDROID_SDK_ROOT }}/ndk/25.2.9519653" >> "$GITHUB_ENV"
+        echo "ANDROID_NDK_ROOT=${{ env.ANDROID_SDK_ROOT }}/ndk/25.2.9519653" >> "$GITHUB_ENV"
+        
         echo "Forcing clean and rebuild of core recipes (kivy, jnius, android) for initial setup..."
         buildozer android clean --recipes=kivy,jnius,android 
         
@@ -123,5 +126,5 @@ jobs:
     - name: Upload APK Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: my-app-apk
-        path: bin/*.apk
+        name: my-app-apk # 업로드될 아티팩트의 이름
+        path: bin/*.apk # 빌드된 APK 파일의 경로 (buildozer가 생성하는 경로)

@@ -13,8 +13,8 @@ android.minapi = 21
 android.ndk = 25b
 android.app_version = 0.1
 android.app_version_code = 1
-android.archs = arm64-v8a # 주석 제거됨
-android.ndk_path = %(platform.dir)s/android-sdk/ndk/25.2.9519653 # NDK 경로 명시
+android.archs = arm64-v8a
+android.ndk_path = %(platform.dir)s/android-sdk/ndk/25.2.9519653
 requirements = python3==3.10.9,kivy==2.2.1,kivymd==1.1.1,requests,plyer
 android.permissions = INTERNET,ACCESS_FINE_LOCATION,ACCESS_NETWORK_STATE,ACCESS_COARSE_LOCATION
 android.add_src =
