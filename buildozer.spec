@@ -43,4 +43,4 @@ android.build_tools_version = 33.0.2
 android.extra_args = --allow-minsdk-ndkapi-mismatch
 
 [buildozer]
-log_level = 2
+log_level = 1
