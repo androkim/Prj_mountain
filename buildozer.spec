@@ -13,7 +13,7 @@ android.minapi = 21
 android.ndk = 25
 android.app_version = 0.1
 android.app_version_code = 1
-android.archs = arm64-v8a
+android.archs = arm64-v8a, armeabi-v7a
 requirements = python3,kivy==2.2.1,kivymd==1.1.1,requests,plyer
 android.permissions = INTERNET,ACCESS_FINE_LOCATION,ACCESS_COARSE_LOCATION,VIBRATE,FLASHLIGHT,CAMERA,READ_EXTERNAL_STORAGE,WRITE_EXTERNAL_STORAGE
 android.add_src =
